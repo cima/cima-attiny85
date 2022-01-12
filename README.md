@@ -23,12 +23,14 @@ A basic program for attiny 85 to demonstrate Aurduino-less development for this 
 
 ## Prereqisities
 
-### 1. USB-COM drivers: [Digistump.Drivers.zip](https://github.com/digistump/DigistumpArduino/releases/download/1.6.7/Digistump.Drivers.zip)
+### 1. USB drivers: [Digistump.Drivers.zip](https://github.com/digistump/DigistumpArduino/releases/download/1.6.7/Digistump.Drivers.zip)
 >__NOTE:__ Find the latest release at https://github.com/digistump/DigistumpArduino/releases/
 - Unzip anywhere
 - Install using _Install Drivers.exe_
 - Plug in your ATTINNY 85 board
 - ![Device in device manager](doc/img/intro-lib-usb.png)
+
+>_Troubleshooting:_ [Digispark ATtiny85 Download and install](https://www.best-microcontroller-projects.com/digispark-attiny85-arduino-install.html)
 
 ### 2. GCC-AVR toolchain alternatives
 
@@ -51,7 +53,30 @@ an USB emaulating bootloader that has a counterpart on PC operating system allow
 - >__NOTE:__ [latest releases](https://github.com/micronucleus/micronucleus/releases)
 - unzip it like you did with AVR-GCC somwhere comfortable for you to reference it within Your project
 
-### 5. CMAKE
+### 5. [CMAKE](https://cmake.org/download/)
+
+https://github.com/adigie/stm32-cmake-template/blob/example_l053/CMakeLists.txt
+
+In root of this project execute to materialize cmake project ad have it ready for build
+```
+cmake -G Ninja -B ./build/
+```
+
+#### Ninja
+https://github.com/ninja-build/ninja/releases
+
+Ninja is a replacement of Makefile
+
+### 5. BOOST
+
+## Linking
+
+[Arduino Files](https://github.com/digistump/DigistumpArduino/releases/download/1.6.7/digistump-avr-1.6.7.zip) - including linker script needed fro our chip/board
+
+# Upload the code
+```
+micronucleus --type raw --run build\src\CimaAttiny85
+```
 
 # Upgrading micronucleus
 
