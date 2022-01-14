@@ -46,8 +46,12 @@ A basic program for attiny 85 to demonstrate Aurduino-less development for this 
 - A tool for uploading and downloading compiled binary to TINY85 microchip
 >__NOTE:__ ISP = in-system programming; a technique to upload your code
 
+>_TODO_ Do I really need it since micronucleus provides executable to handle the upload?
+
 ### 4. [Micronucleus](https://github.com/micronucleus/micronucleus) 
-an USB emaulating bootloader that has a counterpart on PC operating system allowing you to upload your program
+an USB emaulating bootloader that has a counterpart on PC operating system allowing you to upload your program.
+
+A good article for [understanding the nucleus & Tiny85 flash life cycle]( http://digistump.com/wiki/digispark/tutorials/programming)
 
 - Download [micronucleus-cli-master-882e7b4a-x86_64-MINGW64_NT-10.0-17763.zip](https://github.com/micronucleus/micronucleus/releases/download/v2.6/micronucleus-cli-master-882e7b4a-x86_64-MINGW64_NT-10.0-17763.zip)
 - >__NOTE:__ [latest releases](https://github.com/micronucleus/micronucleus/releases)
@@ -95,8 +99,17 @@ micronucleus.exe --run micronucleus-1.11-upgrade.hex
 
 5. Upgrade tkaes a moment
 
+    >__NOTE:__ USB in windows will constntly detect plug-in and plug-off, this can be eliminated
+    > 1. Unplugging the device 
+    > 2. `micronucleus.exe --erase-only`
+    > 3. plug in the device
+
 6. Done!
 
 ## More on upgrading
 
 - https://gist.github.com/Ircama/22707e938e9c8f169d9fe187797a2a2c
+- https://blog.podkalicki.com/how-to-compile-and-burn-the-code-to-avr-chip-on-linuxmacosxwindows/
+
+# Additional reading
+- https://blog.laskarduino.cz/zaciname-s-attiny85-digispark/
