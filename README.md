@@ -120,3 +120,6 @@ micronucleus.exe --run upgrade-t85_default.hex
 
 # Additional reading
 - https://blog.laskarduino.cz/zaciname-s-attiny85-digispark/
+- [ATtiny85: Introduction to Pin Change and Timer Interrupts](https://embeddedthoughts.com/2016/06/06/attiny85-introduction-to-pin-change-and-timer-interrupts/) -- tutorial to input pins and timer interrupts with extensive documentation
+- [ATtiny85: Blinking Without Clock Cycles](https://embeddedthoughts.com/2016/05/27/attiny85-blinking-without-clock-cycles/) -- utilization of timer built in operations (toggle port)
+- [Digispark wiring diagram](https://www.instructables.com/Digispark-DIY-The-smallest-USB-Arduino/)
