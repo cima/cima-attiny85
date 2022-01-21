@@ -25,6 +25,7 @@ add_executable (CimaAttiny85 CimaAttiny85.cpp)
 
 
 add_custom_target(strip ALL     ${AVRSTRIP} -o CimaAttiny85.strip "CimaAttiny85" DEPENDS CimaAttiny85)
-add_custom_target(hex   ALL     ${OBJCOPY} -d .eeprom -j .text -j .data -O ihex "CimaAttiny85" "CimaAttiny85.hex" DEPENDS strip)
+add_custom_target(hex   ALL     ${OBJCOPY} -d .eeprom -O ihex "CimaAttiny85" "CimaAttiny85.hex" DEPENDS strip)
+add_custom_target(asm   ALL     ${OBJDUMP} -S --disassemble CimaAttiny85 > CimaAttiny85.dump DEPENDS CimaAttiny85)
 
 # set_target_properties(CimaAttiny85 PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})

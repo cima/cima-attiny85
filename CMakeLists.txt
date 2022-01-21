@@ -10,10 +10,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
-# Linkingg and packing
-set(CMAKE_C_FLAGS -mmcu=avr25 ${CMAKE_C_FLAGS})
-set(CMAKE_CXX_FLAGS -mmcu=avr25 ${CMAKE_CXX_FLAGS})
+# Linking and packing
+set(CMAKE_CXX_FLAGS "-mmcu=attiny85" ${CMAKE_CXX_FLAGS})
 set(OBJCOPY  avr-objcopy)
+set(OBJDUMP  avr-objdump)
 set(AVRSTRIP avr-strip)
 
 # Definition of target processor

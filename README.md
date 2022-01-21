@@ -86,7 +86,7 @@ ninja
 
 # Upload the code
 ```
-micronucleus --type raw --run build\src\CimaAttiny85
+micronucleus --run build\src\CimaAttiny85.hex
 ```
 
 # Upgrading micronucleus
