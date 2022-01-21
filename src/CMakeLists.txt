@@ -17,12 +17,14 @@ if(Boost_FOUND)
 endif()
 
 
-# set(LINKER_SCRIPT "../AZ3166.ld") # TODO tohle bude potřeba
-# set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${LINKER_SCRIPT}")
+#set(LINKER_SCRIPT "../AZ3166.ld") # TODO tohle bude potřeba
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T ${LINKER_SCRIPT}")
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--verbose")
 
 add_executable (CimaAttiny85 CimaAttiny85.cpp)
 
-add_custom_target(strip ALL     ${AVRSTRIP} "CimaAttiny85" DEPENDS CimaAttiny85)
-add_custom_target(hex   ALL     ${OBJCOPY} -R .eeprom -O ihex "CimaAttiny85" "CimaAttiny85.hex" DEPENDS strip)
+
+add_custom_target(strip ALL     ${AVRSTRIP} -o CimaAttiny85.strip "CimaAttiny85" DEPENDS CimaAttiny85)
+add_custom_target(hex   ALL     ${OBJCOPY} -d .eeprom -j .text -j .data -O ihex "CimaAttiny85" "CimaAttiny85.hex" DEPENDS strip)
 
 # set_target_properties(CimaAttiny85 PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})

@@ -3,21 +3,18 @@
 #include <inttypes.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+/*
+
 #include <avr/sleep.h>
-
-#  define TIMER1_OVF_vect_cima TIMER1_OVF_vect
-
-ISR ( _VECTOR(4) ) 
-{
-    int i = 10;
-    i++;
-}
+#include <util/delay.h>
+*/
 
 int main() {
-
+     DDRB |= (1<<PB1);
+    //PORTB|= (1<<PB1);     //PortB1 high 
+    PORTB&=~(1<<PB1);     //PORTB1 low 
     int i = 0;
-    while (true) {
+    while(true) {
         i++;
-        sleep_mode();
-    }    
+    }
 }

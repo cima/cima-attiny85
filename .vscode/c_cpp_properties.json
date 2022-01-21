@@ -14,7 +14,9 @@
             "compilerPath": "e:\\SW\\TINY85\\avr-gcc-11.1.0-x64-windows\\bin\\avr-g++.exe ",
             "cStandard": "c99",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x86"
+            "intelliSenseMode": "clang-x86",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4

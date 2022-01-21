@@ -69,7 +69,14 @@ cmake -G Ninja -B ./build/
 #### Ninja
 https://github.com/ninja-build/ninja/releases
 
-Ninja is a replacement of Makefile
+Ninja is a replacement of Makefile.
+
+In order to compile this project simply go to folder build and write ninja
+
+```
+cd build
+ninja
+```
 
 ### 5. BOOST
 
@@ -86,13 +93,13 @@ micronucleus --type raw --run build\src\CimaAttiny85
 
 Pretty nice article (https://www.iot-experiments.com/micronucleus-bootloader-upgrade/) gives a good description of how to upgrade your Digispark to the latest version.
 
-1. Download latest HEX representation of [the micronucleus firmware](https://github.com/micronucleus/micronucleus/tree/v1.11/upgrade/releases) e.g. _micronucleus-1.11-upgrade.hex_ 
+1. Download latest HEX representation of [the micronucleus firmware](https://github.com/micronucleus/micronucleus/tree/v2.6/firmware/upgrades) e.g. [_upgrade-t85_default.hex_](https://github.com/micronucleus/micronucleus/blob/v2.6/firmware/upgrades/upgrade-t85_default.hex)
 
 2. Unplug device
 
 3. Run 
 ```
-micronucleus.exe --run micronucleus-1.11-upgrade.hex
+micronucleus.exe --run upgrade-t85_default.hex
 ```
 
 4. Plug in your device
