@@ -1,14 +1,14 @@
 #include <inttypes.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-/*
 
-#include <avr/sleep.h>
-#include <util/delay.h>
-*/
+// #include <avr/sleep.h>
+// #include <util/delay.h>
 
-uint32_t message = 0b00000111100111100111100001001001;
+uint32_t message = 0b00000101010001110111011100010101;
 uint32_t position = 1;
+
+bool stop = false;
 
 void initTimer0()
 {
@@ -21,7 +21,7 @@ void initTimer0()
 ISR(TIMER1_COMPA_vect){
     
     if(position & message){
-        PORTB |= (1<<PB1);     //PortB1 high 
+        PORTB |= (1<<PB1);      //PortB1 high 
     } else {
         PORTB &= ~(1<<PB1);     //PORTB1 low   
     }
@@ -32,16 +32,14 @@ ISR(TIMER1_COMPA_vect){
 
 int main() {
     
-    DDRB |= (1<<PB1);
-    PORTB|= (1<<PB1);     //PortB1 high 
+    DDRB  |= (1<<PB1);
+    PORTB |= (1<<PB1);      //PortB1 high 
     //PORTB&=~(1<<PB1);     //PORTB1 low 
     //PORTB^= (1<<PB1);     //PortB1 toggle
 
     initTimer0();
     sei();
 
-    int i = 0;
-    while(true) {
-        i++;
+    while( ! stop) {
     }
 }

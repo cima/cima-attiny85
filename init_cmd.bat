@@ -8,3 +8,5 @@ e:\SW\ninja-win;%PATH%
 SET CXX=avr-g++
 
 SET AVR_INCLUDE_DIRS=e:\SW\TINY85\avr-gcc-11.1.0-x64-windows\avr\include 
+
+code .
