@@ -2,7 +2,8 @@ name: Build HEX from source
 on: [push]
 jobs:
   compileViaCmake:
-    runs-on: lpodkalicki/avr-toolchain
+    runs-on: ubuntu-latest
+    container: lpodkalicki/avr-toolchain:avr-gcc-10.2.0
     steps:
       - run: g++ --version
       - run: cmake --version
