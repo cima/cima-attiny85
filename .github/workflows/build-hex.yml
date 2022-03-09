@@ -17,6 +17,7 @@ jobs:
     name: Compile via CMake
     runs-on: ubuntu-latest
     container: lpodkalicki/avr-toolchain:latest
+    steps:
       - run: |
           cmake -G Ninja -B ./build/
           cd build
