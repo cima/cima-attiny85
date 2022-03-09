@@ -5,7 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     container: lpodkalicki/avr-toolchain:avr-gcc-10.2.0
     steps:
-      - run: gcc --version
+      - run: avr-gcc --version
+      - run: avr-g++ --version
       - run: cmake --version
       - run: avr-objcopy --version
       - run: avr-objdump --version
