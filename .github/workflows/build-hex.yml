@@ -3,7 +3,7 @@ on: [push]
 jobs:
   compileViaCmake:
     runs-on: ubuntu-latest
-    container: lpodkalicki/avr-toolchain:avr-gcc-10.2.0
+    container: lpodkalicki/avr-toolchain:latest
     steps:
       - run: avr-gcc --version
       - run: avr-g++ --version
