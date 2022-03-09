@@ -19,6 +19,8 @@ jobs:
     container: lpodkalicki/avr-toolchain:latest
     steps:
       - run: |
+          ls -la
+          ls -la ..
           cmake -G Ninja -B ./build/
           cd build
           ls -la
