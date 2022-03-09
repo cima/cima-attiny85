@@ -1,0 +1,11 @@
+name: Build HEX from source
+on: [push]
+jobs:
+  compileViaCmake:
+    runs-on: lpodkalicki/avr-toolchain
+    steps:
+      - run: g++ --version
+      - run: cmake --version
+      - run: avr-objcopy --version
+      - run: avr-objdump --version
+      - run: avr-strip --version
