@@ -13,7 +13,7 @@ jobs:
       - run: avr-objdump --version
       - run: avr-strip --version
       - run: |
-          apt-get install ninja-build
+          apk add ninja
           ninja --version
   compileViaCmake:
     name: Compile via CMake
