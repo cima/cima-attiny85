@@ -38,3 +38,10 @@ jobs:
           cd build
           ls -la
           ninja
+
+      - name: Publish HEX file
+        uses: actions/upload-artifact@v3
+        with:
+          name: cima-attiny85-hex
+          path: |
+            build/src/*.hex
