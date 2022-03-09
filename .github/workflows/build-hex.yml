@@ -1,0 +1,47 @@
+name: Build HEX from source
+on: [push]
+
+env:
+  CXX: avr-g++
+
+jobs:
+  sniffVersions:
+    name: Sniff versions
+    runs-on: ubuntu-latest
+    container: lpodkalicki/avr-toolchain:latest
+    if: false
+    steps:
+      - run: avr-gcc --version
+      - run: avr-g++ --version
+      - run: cmake --version
+      - run: avr-objcopy --version
+      - run: avr-objdump --version
+      - run: avr-strip --version
+      - run: |
+          apk add ninja
+          ninja --version
+  compileViaCmake:
+    name: Compile via CMake
+    runs-on: ubuntu-latest
+    container: lpodkalicki/avr-toolchain:latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Setup project
+        run: |
+          apk add ninja
+          cmake -G Ninja -B ./build/
+
+      - name: Build project
+        run: | 
+          cd build
+          ls -la
+          ninja
+
+      - name: Publish HEX file
+        uses: actions/upload-artifact@v3
+        with:
+          name: cima-attiny85-hex
+          path: |
+            build/src/*.hex
