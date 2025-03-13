@@ -89,6 +89,15 @@ ninja
 micronucleus --run build\src\CimaAttiny85.hex
 ```
 
+# Circuit Wiring
+
+Example in this repository 
+- Drives three LEDs (PB0, PB1, PB4) via PWM
+- One orange LED (PB2) via explicitly setting the state of the pin 
+- Samples the voltage on potentiometer using pin PB3
+
+![Example Circuit for code in this repository](doc/img/cima-attiny85.png)
+
 # Upgrading micronucleus
 
 Pretty nice article (https://www.iot-experiments.com/micronucleus-bootloader-upgrade/) gives a good description of how to upgrade your Digispark to the latest version.
