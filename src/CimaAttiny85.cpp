@@ -2,19 +2,8 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-//#include <avr/sleep.h>
-//#include <util/delay.h>
-
-
-uint32_t messageR = 0b00000101010001110111011100010101;
-uint32_t messageG = 0b10101010101010101111111111111111;
-uint32_t messageB = 0b01111111111111110000000000000001;
-
-uint32_t position = 1;
-uint32_t posVal = 0;
 uint16_t phase16bit = 0;
-
- uint16_t duty = 0;
+uint16_t duty = 0;
 
 bool stop = false;
 
@@ -32,11 +21,6 @@ void initTimer1(){
 
   OCR1C = 255; // compare match value: if TCNT1 == 122 => compare match => call interupt
   TIMSK |= (1 << OCIE1A); // enable compare match interrupt
-/*
-  GTCCR &= ~(1 << COM1B0); //Disable time compare match output to pin PB4
-  GTCCR &= ~(1 << COM1B1);
-  GTCCR &= ~(1 << FOC1B);
-*/
 }
 
 void initPWM0() {
@@ -74,6 +58,7 @@ void initADC() {
     // Enable the ADC and set the prescaler to 128
     ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // ADEN = 1, ADPS2:0 = 111 for prescaler 128
 
+    // Data direction Register for port B
     // Set PB3 (ADC3) as input
     DDRB &= ~(1 << PB3);
 
@@ -109,49 +94,21 @@ uint16_t adc_read() {
  * In our case when timer counts to value OCR1C (which we change to potentiometer value)
  */
 ISR(TIMER1_COMPA_vect) {
-    uint8_t phase = phase16bit & 0xFF;
+    uint8_t subPhase = phase16bit & 0xFF;
        
-    if(phase > (duty >> 8)){
-        PORTB |= (1 << PB2);      //PortB2 high 
+    duty = adc_read();
+
+    //Timer Period Duration = How many ticks to count between timer calls
+    OCR1C = duty >> 8;
+
+    //Turn off the led if subPhase is past the duty time - blinking proportionally to potentialmeter value
+    if(subPhase > (duty >> 8)){
+        PORTB |= (1 << PB2);      //PortB2 high
     } else {
         PORTB &= ~(1 << PB2);     //PORTB2 low   
     }
-    
 
-    if(phase % 8 == 0){
-        /**
-        if(position & messageR){
-            PORTB |= (1<<PB1);      //PortB1 high 
-        } else {
-            PORTB &= ~(1<<PB1);     //PORTB1 low   
-        }
-        */
-/*
-        if(position & messageB){
-            PORTB |= (1<<PB4);      //PortB4 high 
-        } else {
-            PORTB &= ~(1<<PB4);     //PORTB4 low   
-        }
-*/
-/*
-        //if(posVal > (duty >> 10)){
-        if(position & messageG){
-            PORTB |= (1<<PB2);      //PortB2 high 
-        } else {
-            PORTB &= ~(1<<PB2);     //PORTB2 low   
-        }
-       // */
-
-        position = position << 1;
-        if(position == 0){
-            duty = adc_read();
-
-            //Timer Period Duration = How many ticks to count between timer calls
-            OCR1C = duty >> 8;
-        }
-        position = position ? position : 1;
-    }
-    
+    // Output Compare Registers - value to trigger some event - in our case it is PWM duty end
     OCR0A = phaseToIntensity(phase16bit);
     OCR0B = phaseToIntensity(phase16bit + 70);
     OCR1B = phaseToIntensity(phase16bit + 180);
@@ -161,24 +118,25 @@ ISR(TIMER1_COMPA_vect) {
 
 int main() {
     
-    DDRB  |= (1<<PB0);
-    DDRB  |= (1<<PB1);
-    DDRB  |= (1<<PB4);
-    DDRB  |= (1<<PB2);
+    // Data direction Register for port B
+    // 1 = output, 0 = input
+    DDRB  |= (1 << PB0); // Blue LED
+    DDRB  |= (1 << PB1); // Red LED
+    DDRB  |= (1 << PB4); // Green LED
+    DDRB  |= (1 << PB2); // Orange LED
 
-    PORTB |= (1<<PB0);
+    // Light up all LEDs
+    PORTB |= (1 << PB0);      //PortB0 high 
     OCR0A = 128;
 
-    PORTB |= (1<<PB1);      //PortB1 high 
+    PORTB |= (1 << PB1);      //PortB1 high 
     OCR0B = 128;
 
-    PORTB |= (1<<PB4);      //PortB4 high 
+    PORTB |= (1 << PB4);      //PortB4 high 
     OCR1B = 128;
 
-    PORTB |= (1<<PB2);      //PortB2 high 
-
-    //PORTB&=~(1<<PB1);     //PORTB1 low 
-    //PORTB^= (1<<PB1);     //PortB1 toggle
+    // Orange LED is wired in reverse. Must be grounded to light up.
+    PORTB &= ~(1 << PB2);      //PortB2 high 
 
     initTimer1();
     initPWM0();
